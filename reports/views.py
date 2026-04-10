@@ -11,20 +11,15 @@ class ConsumptionByAreaView(APIView):
     View to retrieve consumption analysis grouped by area.
     This simulates the critical 'Análisis de consumo por área' query mentioned in ASR 1.
     """
-    
-    # Optional: We could cache this if it doesn't need to be perfectly real-time,
-    # but to strictly test the DB limits, we'll hit the DB.
     def get(self, request, *args, **kwargs):
-        # A typical complex query: aggregate consumption value and cost by area
         try:
-            # Doing an aggregate query forces DB computation
+
             analysis = CloudResourceConsumption.objects.values('area__name').annotate(
                 total_consumption=Sum('consumption_value'),
                 total_cost=Sum('cost'),
                 avg_consumption=Avg('consumption_value')
             )
             
-            # Convert QuerySet to list of dicts for JSON response
             results = list(analysis)
             
             return Response({"status": "success", "data": results}, status=status.HTTP_200_OK)

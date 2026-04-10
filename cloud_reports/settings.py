@@ -2,10 +2,8 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Load environment variables
 load_dotenv(BASE_DIR / '.env')
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-default-key-changeme')
@@ -53,7 +51,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'cloud_reports.wsgi.application'
 
-# Database Setup (AWS RDS PostgreSQL or SQLite fallback)
 if os.getenv('RDS_DB_NAME'):
     DATABASES = {
         'default': {

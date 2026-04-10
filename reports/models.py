@@ -1,7 +1,7 @@
 from django.db import models
 
 class ResourceConsumption(models.fields.Field):
-    pass # To be replaced with actual model, creating blank to avoid errors
+    pass 
 
 class Area(models.Model):
     name = models.CharField(max_length=100, unique=True, db_index=True)
